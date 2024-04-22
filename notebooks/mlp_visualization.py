@@ -53,6 +53,7 @@ def build_neurons_dataframe(mlp):
 
 # Build the weights DataFrame
 def build_weights_dataframe(mlp, neurons_df):
+    """Builds a DataFrame holding the weights of an sklearn MLP."""
     weights = mlp.coefs_
 
     weights_df = pd.DataFrame(
@@ -109,6 +110,7 @@ def build_colormap(weights_df, colormap_name):
 
 
 def plot_weights(weights_df, linewidth, line_alpha):
+    """Plots the weights from the weights_df."""
     for _, row in weights_df.iterrows():
         plt.plot(
             row.x,
@@ -121,6 +123,7 @@ def plot_weights(weights_df, linewidth, line_alpha):
 
 
 def plot_neurons(neurons_df, neuron_color, neuron_size, neuron_alpha):
+    """Plots the neurons from the neurons DataFrame."""
     plt.scatter(
         neurons_df.x,
         neurons_df.y,
@@ -132,6 +135,7 @@ def plot_neurons(neurons_df, neuron_color, neuron_size, neuron_alpha):
 
 
 def build_dataframes(mlp):
+    """Builds DataFrames holding the neurons and weights of an MLP."""
     neurons_df = build_neurons_dataframe(mlp)
     weights_df = build_weights_dataframe(mlp, neurons_df)
     return neurons_df, weights_df
@@ -149,6 +153,7 @@ def generate_plots(
     neuron_size,
     colormap_name,
 ):
+    """Generates the plots to visualize an MLP."""
     fig = plt.figure(figsize=(figure_width, figure_height))
     cmap, norm = build_colormap(weights_df, colormap_name)
     plot_weights(weights_df, linewidth, line_alpha)
@@ -170,6 +175,7 @@ def display_mlp(
     neuron_size=30,
     colormap_name="Greys",
 ):
+    """Displays the weights of an MLP. Does not plot intercepts (biases)."""
     neurons_df, weights_df = build_dataframes(mlp)
     fig = generate_plots(
         neurons_df,
